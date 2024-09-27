@@ -1,28 +1,38 @@
 ﻿using Tff.ConsoleUI.Models;
-
 namespace Tff.ConsoleUI.Repsitory;
 
-// ClassAdı.MetodAdı();
 public class TeamRepository : IRepository<Team, int>
 {
     public Team Add(Team entity)
     {
-        
+        BaseRepository.Teams.Add(entity);
+        return entity;
     }
 
     public Team? Delete(int id)
     {
-        throw new NotImplementedException();
+        Team? team = GetById(id);
+        if (team == null)
+        {
+            throw new Exception($"Aradığınız Id ye göre Takım Bulunamadı:{id}");
+        }
+        BaseRepository.Teams.Remove(team);
+        return team;
     }
 
     public List<Team> GetAll()
     {
-        throw new NotImplementedException();
+        return BaseRepository.Teams;
     }
 
     public Team? GetById(int id)
     {
-        throw new NotImplementedException();
+        Team? team = BaseRepository.Teams.SingleOrDefault(p => p.Id == id);
+        if (team == null) 
+        {
+            throw new Exception($"Aradığınız Id ye göre Takım Bulunamadı:{id}");
+        }
+        return team;
     }
 
     public Team? Update(int id, Team entity)
