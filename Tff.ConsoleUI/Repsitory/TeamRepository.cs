@@ -7,7 +7,7 @@ public class TeamRepository : IRepository<Team, int>
 {
     public Team Add(Team entity)
     {
-        throw new NotImplementedException();
+        
     }
 
     public Team? Delete(int id)

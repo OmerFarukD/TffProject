@@ -17,22 +17,53 @@ namespace Tff.ConsoleUI.Repsitory
 
         public Player? Delete(Guid id)
         {
-            throw new NotImplementedException();
+            Player? player = GetById(id);
+            if (player == null) 
+            {
+                // Exception Fırlat
+                return null;    
+            }
+            BaseRepository.Players.Remove(player);
+            return player;
         }
 
         public List<Player> GetAll()
         {
-            throw new NotImplementedException();
+            return BaseRepository.Players;
         }
 
         public Player? GetById(Guid id)
         {
-            throw new NotImplementedException();
+            return BaseRepository.Players.SingleOrDefault(p=> p.Id == id);
         }
 
         public Player? Update(Guid id, Player entity)
         {
-            throw new NotImplementedException();
+            Player? player =GetById(id);
+            if (player == null) 
+            {
+                return null;
+            }
+
+            int index = BaseRepository.Players.IndexOf(player);
+
+            Player updatedPlayer = new()
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                Age = entity.Age,
+                Branch = entity.Branch,
+                MarketValue = entity.MarketValue,
+                Number = entity.Number,
+                Surname = entity.Surname,
+                TeamId = entity.TeamId,
+
+            };
+
+            BaseRepository.Players.Remove(player);
+            BaseRepository.Players.Insert(index, updatedPlayer);
+
+            return updatedPlayer;
         }
     }
 }
