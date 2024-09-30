@@ -1,4 +1,5 @@
-﻿using Tff.ConsoleUI.Models;
+﻿using Tff.ConsoleUI.Exceptions;
+using Tff.ConsoleUI.Models;
 namespace Tff.ConsoleUI.Repsitory;
 
 public class TeamRepository : IRepository<Team, int>
@@ -30,13 +31,21 @@ public class TeamRepository : IRepository<Team, int>
         Team? team = BaseRepository.Teams.SingleOrDefault(p => p.Id == id);
         if (team == null) 
         {
-            throw new Exception($"Aradığınız Id ye göre Takım Bulunamadı:{id}");
+            throw new NotFoundException($"Aradığınız Id ye göre Takım Bulunamadı:{id}");
         }
         return team;
     }
 
     public Team? Update(int id, Team entity)
     {
-        throw new NotImplementedException();
+        var updatedTeam = GetById(id);
+
+        int index = BaseRepository.Teams.IndexOf(updatedTeam);
+
+        BaseRepository.Teams.Remove(updatedTeam);
+        BaseRepository.Teams.Insert(index, entity);
+
+        return entity;
+
     }
 }
