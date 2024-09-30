@@ -6,4 +6,5 @@ namespace Tff.ConsoleUI.Service;
 public interface ITeamService
 {
     ReturnModel<Team> GetById(int id);
+    ReturnModel<List<Team>> GetAll();
 }

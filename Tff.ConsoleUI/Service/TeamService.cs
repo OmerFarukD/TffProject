@@ -11,6 +11,18 @@ public class TeamService : ITeamService
 {
     TeamRepository teamRepository = new TeamRepository();
 
+    public ReturnModel<List<Team>> GetAll()
+    {
+       List<Team> list = teamRepository.GetAll();
+
+        return new ReturnModel<List<Team>>
+        {
+            Data = list,
+            Success = true,
+            StatusCode = System.Net.HttpStatusCode.OK,
+        };
+    }
+
     public ReturnModel<Team> GetById(int id)
     {
         try
@@ -20,7 +32,8 @@ public class TeamService : ITeamService
             {
                 Data = team,
                 Message = $"Aradığınız Id ye ait takım görüntülendi: {id}",
-                Success = true
+                Success = true,
+                StatusCode = System.Net.HttpStatusCode.OK
             };
         }
         catch (Exception ex) 
@@ -29,7 +42,8 @@ public class TeamService : ITeamService
             {
                 Data = null,
                 Message = ex.Message,
-                Success = false
+                Success = false,
+                StatusCode =System.Net.HttpStatusCode.NotFound
             };
         }
       

@@ -1,7 +1,11 @@
-﻿using Tff.ConsoleUI.Repsitory;
-using Tff.ConsoleUI.Service;
-
-Console.WriteLine("Hello, World!");
+﻿using Tff.ConsoleUI.Service;
 TeamService teamService = new TeamService();
 
-Console.WriteLine(teamService.GetById(300));
+var teams = teamService.GetAll();
+
+foreach (var team in teams.Data)
+{
+    Console.WriteLine(team);
+}
+
+Console.WriteLine(teamService.GetById(2));
