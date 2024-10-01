@@ -1,4 +1,5 @@
 ﻿using Tff.ConsoleUI.Models;
+using Tff.ConsoleUI.Repsitory;
 using Tff.ConsoleUI.Service;
 TeamService teamService = new TeamService();
 
@@ -6,10 +7,13 @@ var teams = teamService.GetAll();
 
 var takim = new Team
 {
-    Id = 2,
-    Name = "",
+    Id = 200,
+    Name = "FenerBahçe",
     Since = new DateTime(1907, 5, 3)
 };
 
-Console.WriteLine(teamService.Update(4,takim));
+
+BaseRepository.Players.ForEach(p=> Console.WriteLine(p));
+
+//Console.WriteLine(teamService.Update(4,takim));
 

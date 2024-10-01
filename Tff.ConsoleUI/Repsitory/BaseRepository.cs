@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tff.ConsoleUI.Models;
+using Tff.ConsoleUI.Models.Enums;
 
 namespace Tff.ConsoleUI.Repsitory;
 
@@ -41,9 +42,10 @@ public class BaseRepository
             Name = "Victor",
             Surname = "Osimhen",
             Number = "45",
-            Branch = "Futbol",
+            Branch = Branch.Futbol,
             MarketValue = 100000000,
-            TeamId = 1
+            TeamId = 1,
+            Gender = Gender.Male
         }
     };
 }

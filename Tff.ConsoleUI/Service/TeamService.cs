@@ -73,11 +73,11 @@ public class TeamService : ITeamService
         }
         catch (NotFoundException ex ) 
         {
-            return ReturnModelOfException(HttpStatusCode.NotFound, ex);
+            return ReturnModelOfException(ex);
         }
         catch (ValidationException ex)
         {
-            return ReturnModelOfException(HttpStatusCode.BadRequest, ex);
+            return ReturnModelOfException(ex);
         }
     }
 
@@ -89,14 +89,43 @@ public class TeamService : ITeamService
         }
     }
 
-    private ReturnModel<Team> ReturnModelOfException(HttpStatusCode statusCode, Exception ex)
+    private ReturnModel<Team> ReturnModelOfException(Exception ex)
     {
+
+
+        if(ex.GetType() == typeof(NotFoundException))
+        {
+            return new ReturnModel<Team>
+            {
+                Data = null,
+                Message = ex.Message,
+                Success = false,
+                StatusCode = HttpStatusCode.NotFound
+            };
+        }
+
+        if(ex.GetType() == typeof(ValidationException))
+        {
+            return new ReturnModel<Team>
+            {
+                Data = null,
+                Message = ex.Message,
+                Success = false,
+                StatusCode = HttpStatusCode.BadRequest
+            };
+        }
+
+
         return new ReturnModel<Team>
         {
             Data = null,
             Message = ex.Message,
             Success = false,
-            StatusCode = statusCode
+            StatusCode = HttpStatusCode.InternalServerError
         };
+
+       
     }
+
+   
 }
